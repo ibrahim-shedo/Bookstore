@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Confirmation</title>
+</head>
+<body>
+    <div>
+        <h1 style="color: #007BFF;">Payment Confirmation</h1>
+        <p>Dear {{ customer_name }},</p>
+        <p>Thank you for your payment. Your recent order (Order ID: {{ order_id }}) has been successfully marked as paid.</p>
+        <p><strong>Order Details:</strong></p>
+        <ul style="list-style-type: none; padding: 0; margin: 0;">
+            <li><strong>Order ID:</strong> {{ order.id }}</li>
+            <li><strong>Order Date:</strong> {{ order.created }}</li>
+            <li><strong>Payment Method:</strong> {{  order.payment_method }}</li>
+        </ul>
+        <p>For any questions or concerns, please feel free to contact us at <a href="mailto:muhsinbookstore1@gmail.com" style="color: #007BFF; text-decoration: none;">muhsinbookstore1@gmail.com</a>.</p>
+        <p>Thank you for shopping with us!</p>  
+    </div>
+</body>
+</html>

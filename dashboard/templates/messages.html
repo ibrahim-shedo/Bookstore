@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Messages{% endblock %}
+{% block page_heading %}Messages{% endblock %}
+
+{% block content %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Created</th>
+                                <th>Read</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                            {% for message in messages %}
+                                <tr>
+                                    <td>{{ message.id }}</td>
+                                    <td>{{ message.sender }}</td>
+                                    <td>{{ message.subject }}</td>
+                                    <td>{{ message.message }}</td>
+                                    <td>{{ message.created }}</td>
+                                    <td>{{ message.read }}</td>
+                                </tr>
+                            {% empty %}
+                                <tr>
+                                    <td colspan="6">No messages available.</td>
+                                </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+                
+
+{% endblock %}
+{% block generate_report_button %}{% endblock %}

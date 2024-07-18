@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block title %}Order Details{% endblock %}
+{% block page_heading %}Order Details{% endblock %}
+
+{% block content %}
+   
+
+    <div class="row">
+
+        <div class="col-lg-6">
+           
+  
+
+ 
+            <!-- Circle Buttons -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Order Details</h6>
+                </div>
+                <div class="card-body">
+                    <p>Order ID: {{ order.id }}</p>
+                    <p>Customer: {{ order.customer }}</p>
+                    <p>Account No.: {{ order.account_no }}</p>
+                    <p>District: {{ order.district }}</p>
+                    <p>Address: {{ order.address }}</p>
+                    <p>Division: {{ order.division }}</p>
+                    <p>Zip code: {{ order.zip_code }}</p>
+                    <p>Payment Method: {{ order.payment_method }}</p>
+                    <p>Payable: ${{ order.payable }}</p>
+                    <!-- <p>Status: {{ payment_status }} </p> -->
+
+
+                    
+                    <a href="#" class="btn btn-primary">
+                       {{ payment_status }}
+                    </a>
+                    
+                </div>
+            </div>
+
+            
+
+        </div>
+
+        <div class="col-lg-6">
+
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Order Items</h6>
+                </div>
+                <div class="card-body">
+                    
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                        <tr>
+                          <th>Book</th>
+                          <th>Price</th>
+                          <th>Quantity</th> 
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for item in order_items %}
+                          <tr>
+                            <td>{{ item.book }}</td>
+                            <td>${{ item.price }}</td>
+                            <td>{{ item.quantity }}</td>
+                          </tr>
+                        {% empty %}
+                          <tr>
+                            <td colspan="3">No order items available.</td>
+                          </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                    <!-- <a href="#" class="btn btn-primary btn-icon-split">
+                        <span class="icon text-white-50">
+                            <i class="fas fa-flag"></i>
+                        </span>
+                        <span class="text">Split Button Primary</span>
+                    </a>
+                     -->
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+{% block generate_report_button %}{% endblock %}

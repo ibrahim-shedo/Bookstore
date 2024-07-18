@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% block title %}Edit Book{% endblock %}
+{% block page_heading %}Edit Book{% endblock %}
+
+
+
+{% block content %}
+  
+  <div class="row">
+   
+    <div class="col-lg-6">
+      <div class="p-5">
+        <div class="text-center">
+         
+        </div>
+
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="name">Book Name:</label>
+                <input type="text" class="form-control" id="name" name="name" value="{{ book.name }}">
+            </div>
+
+            <div class="form-group">
+                <label for="category">Category:</label>
+                <select class="form-control" id="category" name="category">
+                    {% for category in all_categories %}
+                        <option value="{{ category.id }}"
+                                {% if category.id == book.category.id %} selected {% endif %}>
+                            {{ category.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="writer">Writer:</label>
+                <select class="form-control" id="writer" name="writer">
+                    {% for writer in all_writers %}
+                        <option value="{{ writer.id }}"
+                                {% if writer.id == book.writer.id %} selected {% endif %}>
+                            {{ writer.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+    
+            <div class="form-group">
+                <label for="price">Price:</label>
+                <input type="text" class="form-control" id="price" name="price" value="{{ book.price }}">
+            </div>
+
+            <div class="form-group">
+                <label for="slug">Slug:</label>
+                <input type="text" class="form-control" id="slug" name="slug" value="{{ book.slug }}">
+            </div>
+
+            <div class="form-group">
+                <label for="stock">Stock:</label>
+                <input type="text" class="form-control" id="stock" name="stock" value="{{ book.stock }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="totalreview">Total Reviews:</label>
+                <input type="text" class="form-control" id="totalreview" name="totalreview" value="{{ book.totalreview }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="totalrating">Total Rating:</label>
+                <input type="text" class="form-control" id="totalrating" name="totalrating" value="{{ book.totalrating }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="status">Status:</label>
+                <input type="text" class="form-control" id="status" name="status" value="{{ book.status }}">
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description">{{ book.description }}</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="coverpage">Cover Page:</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="coverpage" name="coverpage">
+                    <label class="custom-file-label" for="coverpage">Choose file</label>
+                </div>
+            </div> 
+            
+            <div class="form-group">
+                <label for="bookpage">Book Page:</label>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="bookpage" name="bookpage">
+                    <label class="custom-file-label" for="bookpage">Choose file</label>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
+        
+    <script>
+        // Update custom file input labels
+        $('.custom-file-input').on('change', function() {
+          var fileName = $(this).val().split('\\').pop();
+          $(this).next('.custom-file-label').addClass("selected").html(fileName);
+        });
+      </script>
+      
+      
+{% endblock %}
+{% block generate_report_button %}{% endblock %}

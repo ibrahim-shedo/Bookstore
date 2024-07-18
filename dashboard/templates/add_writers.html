@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Add Writer{% endblock %}
+{% block page_heading %}Add Writer{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="p-5">
+                {% if form.pic.errors %}
+                    <div class="text-danger">
+                        {{ form.pic.errors }}
+                    </div>
+                {% endif %}
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">Writer Name:</label>
+                        {{ form.name }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.slug.id_for_label }}">Slug:</label>
+                        {{ form.slug }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.bio.id_for_label }}">Bio:</label>
+                        {{ form.bio }}
+                    </div>
+                    <div class="form-group">
+                        <label for="{{ form.profile_picture.id_for_label }}">Profile Picture:</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="{{ form.pic.id_for_label }}" name="pic">
+                            <label class="custom-file-label" for="{{ form.pic.id_for_label }}">Choose file</label>
+                        </div>
+                        {% if form.profile_picture.errors %}
+                            <div class="text-danger">
+                                {{ form.pic.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Writer</button>
+                </form>
+                
+            </div>
+        </div>
+
+      
+    </div>
+
+
+  
+{% endblock %}
+{% block generate_report_button %}{% endblock %}
+
+
+

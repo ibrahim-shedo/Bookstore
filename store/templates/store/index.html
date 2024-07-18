@@ -1,0 +1,107 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load customfunction %}
+{% block headermenu %}
+
+{% endblock %}
+
+			{% block container %}
+			<div class="row">
+				<div class="col-sm-12">
+					<div style="margin:0 auto;">
+						<ul id="demo3">
+							{% for sld in slide %}
+							<li>
+								<img style="height: 400px;" src="{{ sld.slideimg.url }}"/>
+							</li>
+							{% endfor %}
+						</ul>
+					</div>
+				</div>
+				<div class="col-sm-12">
+					<div class="titleheader">
+						<h3 class="h2header text-center">New Published Book</h3>
+						<!-- <a href="#">See All</a> -->
+					</div>
+					<div class="regulara sliderzx">
+						{% for item in newbooks %}
+						<div class="book-wrapper text-center shadow">
+							<div class="coverpage">
+								<img style="height: 150px; width:100px;" src="{{ item.coverpage.url }}"/>
+							</div>
+							<a href="{% url 'store:book' id=item.id %}">{{ item.name|text_short }}</a>
+							<a href="{% url 'store:writer' id=item.writer.id %}">{{ item.writer }}</a>
+							<div class="rating">
+								{{ item.totalrating|averagerating:item.totalreview }}
+								<span class="totalrating">{{ item.totalreview|add:-1 }}</span>
+							</div>
+							<p> ksh {{ item.price }}</p>
+							<button class="btn btn-danger" id="addTocart" data-book-id="{{ item.id }}">
+									<i class="fa fa-shopping-cart""></i>Add to cart
+								</button>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+
+				<div class="col-sm-12">
+					<div class="titleheader">
+						<h3 class="h2header text-center">Top Selling Book</h3>
+					</div>
+					<div class="regulara sliderzx">
+						{% for p in newbooks %}
+						<div class="book-wrapper text-center shadow">
+							<div class="coverpage">
+								<img style="height: 150px; width:100px;" src="{{ p.coverpage.url }}"/>
+							</div>
+							<a href="{% url 'store:book' id=p.id %}">{{ p.name|text_short }}</a>
+							<a href="{% url 'store:writer'  id=p.writer.id %}">{{ p.writer }}</a>
+							<div class="rating">
+								{{ p.totalrating|averagerating:p.totalreview }}
+								<span class="totalrating">{{ p.totalreview|add:-1 }}</span>
+							</div>
+							<p> ksh {{ p.price }}</p>
+							<button class="btn btn-danger" id="addTocart" data-book-id="{{ p.id }}">
+									<i class="fa fa-shopping-cart""></i>Add to cart
+								</button>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div> 
+
+						
+			<!-- Modal for sending a message -->
+			<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="messageModalLabel">Send a Message</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<!-- Your message form goes here -->
+							<form method="post" action="{% url 'store:send_message' %}">
+								{% csrf_token %}
+								<div class="form-group">
+									<label for="name">Name:</label>
+									<input type="hidden" name="name" value="{{ request.user.username }}">
+								</div>
+								<div class="form-group">
+									<label for="subject">Subject:</label>
+									<input type="text" class="form-control" id="subject" name="subject" required>
+								</div>
+								<div class="form-group">
+									<label for="message">Message:</label>
+									<textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+								</div>
+								<button type="submit" class="btn btn-primary">Send</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			{% endblock %}

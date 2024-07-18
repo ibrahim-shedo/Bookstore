@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Categories List{% endblock %}
+{% block page_heading %}Categories List{% endblock %}
+
+
+{% block content %}
+        
+    <a href="{% url 'dashboard:add_book' %}" class="btn btn-primary float-right mb-3">Add Book</a>
+  <table class="table">
+    <thead>
+      <tr>
+                <th>Name</th>
+                <th>Slug</th>
+                <th>Profile Picture</th>
+                <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for writer in writers %}
+            <tr>
+                <td>{{ writer.name }}</td>
+                <td>{{ writer.slug }}</td>
+                <td>
+                    <img src="{{ writer.profile_picture.url }}" alt="{{ writer.name }}" style="max-width: 50px; max-height: 50px;">
+                </td>
+                <td>
+                    <a href="{% url 'dashboard:delete_writer' writer.id %}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4">No writers found.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+
+  </table>
+ 
+{% endblock %}
+{% block generate_report_button %}{% endblock %}

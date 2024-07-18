@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Orders{% endblock %}
+{% block page_heading %}Orders{% endblock %}
+
+{% block content %}
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Customer</th>
+                                    <th>Transaction ID</th>
+                                    <th>Address</th>
+                                    <th>Payable Amount</th>
+                                    <th>Total Books</th>
+                                    <th>Payment Method</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <!-- <tfoot>
+                            <tr>
+                                <th>Customer</th>
+                                <th>Transaction ID</th>
+                                <th>Address</th>
+                                <th>Payable Amount</th>
+                                <th>Total Books (Quantity)</th>
+                                <th>Payment Method</th>
+                                <th>Payment Status</th>
+                                <th>Actions</th>
+                            </tr>
+
+                        </tfoot> -->
+                        <tbody>
+                            <tr>
+                                {% for order in orders %}
+
+                                    <td>{{ order.name }}</td>
+                                    <td>{{ order.transaction_id }}</td>
+                                    <td>{{ order.address }}</td>
+                                    <td>${{ order.payable }}</td>
+                                    <td>{{ order.totalbook }}</td>
+                                    <td>{{ order.payment_method }}</td>
+                                    <td>
+                                        <form method="post" action="{% url 'dashboard:change_payment_status' order.id %}">
+                                            {% csrf_token %}
+                                            <div class="form-group">
+                                              <select class="form-control" name="payment_status" onchange="this.form.submit()">
+                                                <option value="paid" {% if order.paid %}selected{% endif %}>Paid</option>
+                                                <option value="unpaid" {% if not order.paid %}selected{% endif %}>Unpaid</option>
+                                              </select>
+                                            </div>
+                                          </form>
+                                    </td>
+                                    <td>
+                                    <a href="{% url 'dashboard:order_details' order.id %}" class="btn btn-info">Details</a>
+
+                                    </td>
+                                </tr>
+                                {% empty %}
+                                    <tr>
+                                    <td colspan="8">No orders available.</td>
+                                    </tr>
+                                {% endfor %}
+                            
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+                
+
+{% endblock %}
+{% block generate_report_button %}{% endblock %}

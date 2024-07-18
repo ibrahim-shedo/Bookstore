@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block title %}Add Books{% endblock %}
+{% block page_heading %}Add Books{% endblock %}
+
+
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="p-5">
+                <!-- add_book_custom.html -->
+
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <label for="{{ form.name.id_for_label }}">Book Name:</label>
+                        <input type="text" class="form-control" id="{{ form.name.id_for_label }}" name="name" placeholder="Book Name...">
+                        {% if form.name.errors %}
+                            <div class="text-danger">
+                                {{ form.name.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.price.id_for_label }}">Price:</label>
+                        <input type="text" class="form-control" id="{{ form.price.id_for_label }}" name="price" placeholder="Price">
+                        {% if form.price.errors %}
+                            <div class="text-danger">
+                                {{ form.price.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.category.id_for_label }}">Category:</label>
+                        <select name="category" id="{{ form.category.id_for_label }}" class="form-control">
+                            {% for category in form.category.field.choices %}
+                                <option value="{{ category.0 }}" {% if category.0 == form.category.value %}selected{% endif %}>
+                                    {{ category.1 }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.category.errors %}
+                            <div class="text-danger">
+                                {{ form.category.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.writer.id_for_label }}">Writer:</label>
+                        <select name="writer" id="{{ form.writer.id_for_label }}" class="form-control">
+                            {% for writer in form.writer.field.choices %}
+                                <option value="{{ writer.0 }}" {% if writer.0 == form.writer.value %}selected{% endif %}>
+                                    {{ writer.1 }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.writer.errors %}
+                            <div class="text-danger">
+                                {{ form.writer.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.slug.id_for_label }}">Slug:</label>
+                        <input type="text" class="form-control" id="{{ form.slug.id_for_label }}" name="slug" >
+                        {% if form.slug.errors %}
+                            <div class="text-danger">
+                                {{ form.slug.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group"> 
+                        <label for="{{ form.stock.id_for_label }}">Stock:</label>
+                        <input type="text" class="form-control" id="{{ form.stock.id_for_label }}" name="stock"  placeholder="Stock">
+                        {% if form.stock.errors %}
+                            <div class="text-danger">
+                                {{ form.stock.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.totalreview.id_for_label }}">Total Reviews:</label>
+                        <input type="text" class="form-control" id="{{ form.totalreview.id_for_label }}" name="totalreview" value="{{ form.totalreview.value }}" placeholder="Total Reviews">
+                        {% if form.totalreview.errors %}
+                            <div class="text-danger">
+                                {{ form.totalreview.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.totalrating.id_for_label }}">Total Rating:</label>
+                        <input type="text" class="form-control" id="{{ form.totalrating.id_for_label }}" name="totalrating" value="{{ form.totalrating.value }}" placeholder="Total Rating">
+                        {% if form.totalrating.errors %}
+                            <div class="text-danger">
+                                {{ form.totalrating.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.status.id_for_label }}">Status:</label>
+                        <input type="text" class="form-control" id="{{ form.status.id_for_label }}" name="status" value="{{ form.status.value }}" placeholder="Status">
+                        {% if form.status.errors %}
+                            <div class="text-danger">
+                                {{ form.status.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.description.id_for_label }}">Description:</label>
+                        <textarea class="form-control" id="{{ form.description.id_for_label }}" name="description" placeholder="Description">{{ form.description.value }}</textarea>
+                        {% if form.description.errors %}
+                            <div class="text-danger">
+                                {{ form.description.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group">
+                        <label for="{{ form.coverpage.id_for_label }}">Cover Page:</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="{{ form.coverpage.id_for_label }}" name="coverpage">
+                            <label class="custom-file-label" for="{{ form.coverpage.id_for_label }}">Choose file</label>
+                        </div>
+                        {% if form.coverpage.errors %}
+                            <div class="text-danger">
+                                {{ form.coverpage.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="{{ form.bookpage.id_for_label }}">Book Page:</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="{{ form.bookpage.id_for_label }}" name="bookpage">
+                            <label class="custom-file-label" for="{{ form.bookpage.id_for_label }}">Choose file</label>
+                        </div>
+                        {% if form.bookpage.errors %}
+                            <div class="text-danger">
+                                {{ form.bookpage.errors }}
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-user btn-block mb-1">
+                        Add Book
+                    </button>
+                </form>
+
+                <a href="{% url 'dashboard:books_list' %}" class="btn btn-secondary btn-user btn-block mt-1">Back to Books List</a>
+
+            </div>
+        </div>
+
+      
+    </div>
+
+
+  
+{% endblock %}
+{% block generate_report_button %}{% endblock %}
+
+
+

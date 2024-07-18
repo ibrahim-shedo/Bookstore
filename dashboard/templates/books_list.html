@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Books List{% endblock %}
+{% block page_heading %}Books List{% endblock %}
+
+
+{% block content %}
+        
+    <a href="{% url 'dashboard:add_book' %}" class="btn btn-primary float-right mb-3">Add Book</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Writer</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+        <tr>
+          <td>{{ book.id }}</td>
+          <td>{{ book.name }}</td>
+          <td>{{ book.writer }}</td>
+          <td>{{ book.category.name }}</td>
+          <td>{{ book.price }}</td>
+          <td>{{ book.stock }}</td>
+          
+          <td>
+            <a href="{% url 'dashboard:edit_book' book.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'dashboard:delete_book' book.id %}" class="btn btn-danger">Delete</a>
+
+        </td>
+        
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="4">No books available.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+ 
+{% endblock %}
+{% block generate_report_button %}{% endblock %}

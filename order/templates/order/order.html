@@ -1,0 +1,112 @@
+{% extends 'store/base.html' %}
+{% load static %}
+{% load customfunction %}
+{% load crispy_forms_tags %}
+
+{% block container %}
+			<div class="row">
+			    <div class="col-md-8 order-md-1 cart_info">
+			        <h4 class="mb-3 mt-3">Shipping Address</h4>
+					{% if messages %}
+					<div class="messages">
+					    {% for message in messages %} 
+					    <p{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</p>
+					    {% endfor %}
+					</div>
+					{% endif %}
+					<form action="" method="POST" class="needs-validation" novalidate="">
+						{% csrf_token %}
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.name.id_for_label }}">Book Name:</label>
+								<input type="text" class="form-control" id="{{ form.name.id_for_label }}" name="{{ form.name.name }}" value="{{ form.name.value }}">
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.email.id_for_label }}">Email:</label>
+								<input type="text" class="form-control" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" value="{{ form.email.value }}">
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.phone.id_for_label }}">Phone:</label>
+								<input type="text" class="form-control" id="{{ form.phone.id_for_label }}" name="{{ form.phone.name }}" >
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.address.id_for_label }}">Address:</label>
+								<input type="text" class="form-control" id="{{ form.address.id_for_label }}" name="{{ form.address.name }}" >
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.division.id_for_label }}">Town:</label>
+								<select class="form-control" id="{{ form.division.id_for_label }}" name="{{ form.division.name }}">
+									<option value="" {% if not form.division.value %}selected{% endif %}>Select Town</option>
+									<option value="Eastleigh" {% if form.division.value == "Eastleigh" %}selected{% endif %}>Eastleigh</option>
+									<option value="South C" {% if form.division.value == "South C" %}selected{% endif %}>South C</option>
+									<option value="Pangani" {% if form.division.value == "Eastleigh" %}selected{% endif %}>Eastleigh</option>
+									<option value="Mombasa CBD" {% if form.division.value == "Mombasa CBD" %}selected{% endif %}>Mombasa CBD</option>
+									<option value="Nakuru Town" {% if form.division.value == "Nakuru Town" %}selected{% endif %}>Nakuru Town</option>
+									<option value="Nairobi CBD" {% if form.division.value == "Nairobi CBD" %}selected{% endif %}>Nairobi CBD</option>
+								</select>
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.district.id_for_label }}">City:</label>
+								<select class="form-control" id="{{ form.district.id_for_label }}" name="{{ form.district.name }}">
+									<option value="" {% if not form.district.value %}selected{% endif %}>Select City</option>
+									<option value="Nairobi" {% if form.district.value == "Nairobi" %}selected{% endif %}>Nairobi</option>
+									<option value="Mombasa" {% if form.district.value == "Mombasa" %}selected{% endif %}>Mombasa</option>
+									<option value="Nakuru" {% if form.district.value == "Nakuru" %}selected{% endif %}>Nakuru</option>
+									<option value="Kisumu" {% if form.district.value == "Kisumu" %}selected{% endif %}>Kisumu</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.zip_code.id_for_label }}">Zip Code:</label>
+								<input type="text" class="form-control" id="{{ form.zip_code.id_for_label }}" name="{{ form.zip_code.name }}" >
+							</div>
+							
+							<hr class="mb-4">
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.payment_method.id_for_label }}">Payment Method:</label>
+								<select class="form-control" id="{{ form.payment_method.id_for_label }}" name="{{ form.payment_method.name }}">
+									<option value="" {% if not form.payment_method.value %}selected{% endif %}>Select Payment Method</option>
+									<option value="Paypal" {% if form.payment_method.value == "Paypal" %}selected{% endif %}>Paypal</option>
+									<option value="Credit Card" {% if form.payment_method.value == "Credit Card" %}selected{% endif %}>Credit Card</option>
+									<option value="Mpesa" {% if form.payment_method.value == "Mpesa" %}selected{% endif %}>Mpesa</option>
+								</select>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.account_no.id_for_label }}">Account Number:</label>
+								<input type="text" class="form-control" id="{{ form.account_no.id_for_label }}" name="{{ form.account_no.name }}" >
+							</div>
+							<div class="col-md-6 mb-3">
+								<label for="{{ form.transaction_id.id_for_label }}">Transaction ID:</label>
+								<input type="text" class="form-control" id="{{ form.transaction_id.id_for_label }}" name="{{ form.transaction_id.name }}">
+							</div>
+						</div>
+						<hr class="mb-4">
+						<button class="btn btn-success btn-block" type="submit" style="margin-bottom: 20px">Continue to checkout</button>
+
+
+					</form>
+					
+					
+					
+			    </div>
+			    <div class="col-md-4 order-md-2 mb-4">
+					<ul class="list-group">
+						<li class="list-group-item d-flex justify-content-between align-items-center"><h4>Checkout Summary</h4></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Books<span>{{ cart|length }}</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Subtotal<span>ksh {{ cart.get_total_price }}</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Shipping<span>ksh {{ cost|shipping }}</span></li>
+						<li class="list-group-item d-flex justify-content-between align-items-center">Payable Total<span>ksh {{ cart.get_total_price|payabletotal}}</span></li>
+					</ul>
+			    </div>
+			</div>
+		{% endblock %}
