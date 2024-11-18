@@ -68,4 +68,4 @@ License
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 Contact
-For questions or collaboration, reach out via email@example.com or visit my GitHub profile.
+For questions or collaboration, reach out via ibrezma.shado@gmail.com or visit my GitHub ibrahim-shedo.
