@@ -82,4 +82,4 @@ Feel free to fork this repository and submit pull requests for new features or b
 This project is licensed under the MIT License. See the LICENSE file for more details.
 
 ## Contact
-For any inquiries or collaboration, contact me at [email@example.com](mailto:email@example.com).
+For any inquiries or collaboration, contact me at [ibrezma.shado.gmail.com](mailto:ibrezma.shado.gmail.com).
